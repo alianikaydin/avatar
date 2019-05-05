@@ -1,0 +1,101 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.alian.application.avatarapp"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("mylivn.jks")
+            storePassword 'pass1234'
+            keyAlias 'mylivnkey'
+            keyPassword 'pass1234'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'BASE_URL', "\"" + "https://i.pravatar.cc/" + "\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+        release {
+            buildConfigField 'String', 'BASE_URL', "\"" + "https://i.pravatar.cc/" + "\""
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+    }
+
+
+
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+dependencies {
+    implementation project(":core")
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation libraries.timber
+
+
+
+    implementation libraries.daggerCompilerSupport
+    implementation libraries.dagger
+    kapt libraries.daggerAndroidProcessor
+    kapt libraries.annotationProcessor
+
+    implementation libraries.rxbinding
+    implementation libraries.rxAndroid
+
+    implementation libraries.supportAnnotations
+    implementation libraries.apacheCommonsLang
+    implementation libraries.supportAppCompat
+    implementation libraries.supportDesign
+    implementation libraries.cardView
+    implementation libraries.constraint
+
+    implementation libraries.butterKnife
+    kapt libraries.butterKnifeProcessor
+
+    implementation libraries.retrofit
+    implementation libraries.retrofitGsonConverter
+    implementation libraries.retrofitRxJavaAdapter
+    implementation libraries.okHttp
+    implementation libraries.okHttpLoggingInterceptor
+    implementation libraries.stetho
+    implementation libraries.stethookhttp3
+
+    implementation libraries.room
+    implementation libraries.roomRX
+    kapt libraries.roomProcessor
+
+    implementation libraries.simpleXml
+
+}
+

@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Avatar Application</string>
+    <string name="title_activity">Avatar</string>
+    <string name="button_text">Load Next Image</string>
+    <string name="slow_or_no_internet_connection">Slow or no internet connection.</string>
+</resources>

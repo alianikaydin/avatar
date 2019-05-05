@@ -1,0 +1,113 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.2.51'
+    repositories {
+        mavenCentral()
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath "com.google.gms:google-services:4.1.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.70"
+
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+
+    //if we have more than 1 module, I have extracted these in order to use common versions
+    versions = [
+            supportLibs        : '27.1.1',
+
+            dagger             : '2.16',
+            javaxAnnotations   : '1.2',
+            androidAnnotations : '4.1.0',
+            apacheCommonsLang  : '3.7',
+            rxJava             : '2.1.13',
+            rxAndroid          : '2.0.2',
+            retrofit           : '2.0.2',
+            retrofitRx         : '2.4.0',
+            rxbinding          : '2.0.0',
+            simpleXml          : '2.3.0',
+            okHttp             : '3.9.0',
+            stetho             : '1.5.0',
+            stethookhttp3      : '1.5.0',
+            gson               : '2.6.2',
+            butterKnife        : '8.8.1',
+            constraint         : '1.0.2',
+            room               : '1.0.0',
+            reactiveWifi       : '0.3.0',
+            reactiveNetwork    : '3.0.0',
+            awsIOTAndroidSDK    : '2.7.7',
+            androidFCMMessaging : '17.3.0',
+            timber              : '4.1.1',
+
+            /** Testing **/
+            mockitoVersion     : '2.7.10',
+            robolectricVersion : '3.7.1',
+            fixture            : '2.7.2',
+            junit_version      : '4.12',
+            junitparams_version: '1.1.0',
+            hamcrest_version   : '1.3',
+            shazamcrest_version: '0.10',
+            googleAuthService  : '15.0.1',
+            crashlyticsService  : '2.9.6',
+            firebaseAnalytics  : '16.0.1'
+
+
+    ]
+
+    libraries = [
+
+            // android
+            supportAnnotations      : "com.android.support:support-annotations:$versions.supportLibs",
+            supportAppCompat        : "com.android.support:appcompat-v7:$versions.supportLibs",
+            supportDesign           : "com.android.support:design:$versions.supportLibs",
+            cardView                : "com.android.support:cardview-v7:$versions.supportLibs",
+            constraint              : "com.android.support.constraint:constraint-layout:$versions.constraint",
+            room                    : "android.arch.persistence.room:runtime:$versions.room",
+            roomProcessor           : "android.arch.persistence.room:compiler:$versions.room",
+            roomRX                  : "android.arch.persistence.room:rxjava2:$versions.room",
+
+            daggerCompilerSupport   : "com.google.dagger:dagger-android-support:$versions.dagger",
+            dagger                  : "com.google.dagger:dagger:$versions.dagger",
+            daggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:$versions.dagger",
+            annotationProcessor     : "com.google.dagger:dagger-compiler:$versions.dagger",
+
+            javaxAnnotations        : "javax.annotation:javax.annotation-api:$versions.javaxAnnotations",
+            androidAnnotations      : "org.androidannotations:androidannotations:$versions.androidAnnotations",
+            apacheCommonsLang       : "org.apache.commons:commons-lang3:$versions.apacheCommonsLang",
+            androidAnnotationsApi   : "org.androidannotations:androidannotations-api:$versions.androidAnnotations",
+            rxbinding               : "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$versions.rxbinding",
+            rxJava                  : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
+            rxAndroid               : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
+            okHttp                  : "com.squareup.okhttp3:okhttp:$versions.okHttp",
+            okHttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$versions.okHttp",
+            stetho                  : "com.facebook.stetho:stetho:$versions.stetho",
+            stethookhttp3           : "com.facebook.stetho:stetho-okhttp3:$versions.stethookhttp3",
+            retrofit                : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+            retrofitGsonConverter   : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
+            retrofitRxJavaAdapter   : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofitRx",
+            simpleXml               : "com.squareup.retrofit2:converter-simplexml:$versions.simpleXml",
+            butterKnife             : "com.jakewharton:butterknife:$versions.butterKnife",
+            butterKnifeProcessor    : "com.jakewharton:butterknife-compiler:$versions.butterKnife",
+            timber                  : "com.jakewharton.timber:timber:$versions.timber"
+
+    ]
+}
