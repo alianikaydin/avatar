@@ -1,16 +1,29 @@
 package com.alian.application.avatarapp.network.di;
 
+import android.content.Context;
+
 import com.alian.application.avatarapp.BuildConfig;
 import com.alian.application.avatarapp.core.scheduler.JobExecutor;
 import com.alian.application.avatarapp.network.interactors.NetworkInteractorBindingModule;
+import com.alian.application.avatarapp.utils.NetworkConnectionValidator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.smarthome.core.main.core.di.scope.ApplicationContext;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Cache;
+import okhttp3.CacheControl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -22,20 +35,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
 
 
+    private Context context;
+
     @Singleton
     @Provides
-    Retrofit getImagesBaseRetrofit() {
+    Retrofit getImagesBaseRetrofit(@ApplicationContext Context context) {
+        this.context = context;
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
-        //TODO: because of the dagger2 requirements, couldn't  inject context here, thus couldn't create a cache and progress mechanism.
-        /*File httpCacheDirectory = new File(context.getFilesDir(),"avatar_direction");
+        File httpCacheDirectory = new File(context.getFilesDir(),"avatar_direction");
         if(!httpCacheDirectory.exists()){
             httpCacheDirectory.mkdirs();
         }
         int cacheSize = 10 * 1024 * 1024;
-        Cache cache = new Cache(httpCacheDirectory, cacheSize);*/
+        Cache cache = new Cache(httpCacheDirectory, cacheSize);
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         if(BuildConfig.DEBUG) {
@@ -43,8 +58,7 @@ public class NetworkModule {
         } else {
             interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
-        //OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR).cache(cache).build();
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR).cache(cache).build();
 
 
         return new Retrofit.Builder()
@@ -57,7 +71,7 @@ public class NetworkModule {
                 .build();
     }
 
-   /* private Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
+    private Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
 
@@ -85,7 +99,7 @@ public class NetworkModule {
                         .build();
             }
         }
-    };*/
+    };
 
 
 }
