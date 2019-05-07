@@ -65,6 +65,7 @@ public class AvatarPresenter implements AvatarContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
+                view.setButtonClickable(true);
                 if (NetworkConnectionValidator.checkConnectionError(e)) {
                     view.noInternetConnection();
                     Timber.e(TAG, "Connection error:");
@@ -76,6 +77,7 @@ public class AvatarPresenter implements AvatarContract.Presenter {
 
             @Override
             public void onComplete() {
+                view.setButtonClickable(true);
             }
         });
     }

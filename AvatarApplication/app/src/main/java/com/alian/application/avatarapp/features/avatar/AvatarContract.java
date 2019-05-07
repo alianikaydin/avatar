@@ -11,6 +11,8 @@ public interface AvatarContract {
 
         //TODO: couldn't implement progress mechanism on Retrofit because of the dagger2
         void setProgressBar(int percent);
+
+        void setButtonClickable(boolean clickable);
     }
     interface Presenter {
 

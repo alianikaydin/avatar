@@ -47,6 +47,7 @@ public class AvatarFragment extends BaseFragment implements AvatarContract.View 
     @OnClick(R.id.next_button)
     public void onNextButtonClicked() {
         imageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+        button.setClickable(false);
         presenter.loadNextImage();
 
     }
@@ -64,5 +65,10 @@ public class AvatarFragment extends BaseFragment implements AvatarContract.View 
     @Override
     public void setProgressBar(int percent) {
         circularProgress.setProgress(percent);
+    }
+
+    @Override
+    public void setButtonClickable(boolean clickable) {
+        button.setClickable(clickable);
     }
 }
